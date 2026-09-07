@@ -44,7 +44,7 @@ The staging table never touches `msdyn_estimateline` directly for reads after th
 ## What's included
 
 - **Custom table**: `est_estimateimport` ("Estimate Import") — the staging/input table, with lookups to Project, Project Task, Resource Category, Unit, Product, and Transaction Category (all optional except Project, matching what standard Project Operations allows).
-- **Forms**: Quick Create + Main form, styled to match the standard Estimate quick-create experience.
+- **Forms**: Quick Create + Main form, styled to match the standard Estimate quick-create experience. Both include a small JavaScript web resource (`est_/js/estimate_import_task_filter.js`) that filters the Project Task lookup to only show tasks belonging to the Project you've selected — picking Project first, then Task, is enforced rather than left to the user to get right. There's also a Quick View form (read-only summary panel) for embedding this record on other entities' forms.
 - **Views**: Active / Inactive / My / Advanced Find / Associated / Lookup / Quick Find, all showing the relevant columns where applicable.
 - **Security role**: `Estimate Import User (Community)` — grants exactly the privileges needed to use this table (own-table CRUD, read access to the lookup target tables, append rights to the generated Estimate/Estimate Line records). Rename it after import if you like; it's just a starting point.
 - **Power Automate flow**: `Community - Process Estimate Import` — triggers on Create, Update, and Delete of a staging row:

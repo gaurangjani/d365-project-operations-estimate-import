@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{e92e243a-bcaa-f111-aaac-7ced8d9eae55}</WebResourceId>
+  <Name>est_/js/estimate_import_task_filter.js</Name>
+  <DisplayName>Estimate Import - Task Filter (Community)</DisplayName>
+  <Description>Filters the Project Task lookup by the selected Project.</Description>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/est_jsestimate_import_task_filterjsE92E243A-BCAA-F111-AAAC-7CED8D9EAE55</FileName>
+</WebResource>

@@ -6,6 +6,21 @@
     <FormPresentation>0</FormPresentation>
     <FormActivationState>1</FormActivationState>
     <form>
+      <formLibraries>
+        <Library name="est_/js/estimate_import_task_filter.js" libraryUniqueId="{44ED687D-5F51-4058-ABAA-0DF43834D571}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="Community.EstimateImport.onFormLoad" libraryName="est_/js/estimate_import_task_filter.js" handlerUniqueId="{C69C44C2-B9E2-4B71-8EE8-92C97F3948A0}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="est_project">
+          <Handlers>
+            <Handler functionName="Community.EstimateImport.onProjectChange" libraryName="est_/js/estimate_import_task_filter.js" handlerUniqueId="{9FE4A505-5A9B-4268-9C1C-9F74F7641A8A}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
       <tabs>
         <tab id="a1b2c3d4-0001-4000-8000-000000000001" name="tab_0" expanded="true" visible="true">
           <labels>

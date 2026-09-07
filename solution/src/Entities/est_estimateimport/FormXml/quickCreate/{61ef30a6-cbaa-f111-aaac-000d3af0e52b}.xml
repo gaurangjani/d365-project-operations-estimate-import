@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{61ef30a6-cbaa-f111-aaac-000d3af0e52b}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <formLibraries>
+        <Library name="est_/js/estimate_import_task_filter.js" libraryUniqueId="{DE12460E-181F-4AB5-8433-0FE5EC5100C5}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="Community.EstimateImport.onFormLoad" libraryName="est_/js/estimate_import_task_filter.js" handlerUniqueId="{FA1388CD-58C7-4D9B-88AF-5D162539F5F0}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="est_project">
+          <Handlers>
+            <Handler functionName="Community.EstimateImport.onProjectChange" libraryName="est_/js/estimate_import_task_filter.js" handlerUniqueId="{956EA0E2-B951-4692-8006-B1422428743F}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
+      <tabs>
+        <tab id="{2D508C28-39EA-4312-AE82-621C7EECAC22}" name="tab_1" showlabel="false" labelid="{5CE2970B-0EF5-4130-A51B-173B8B9B21DA}">
+          <labels>
+            <label description="New Tab" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="34%">
+              <sections>
+                <section id="{448A66D8-2449-48C9-BE99-BD3CABECB581}" name="tab_1_column_1_section_1" columns="1" showlabel="true" showbar="false" IsUserDefined="0" labelwidth="130" labelid="{CB7FBE02-A9DB-417B-B39D-0DF9FA9E8E43}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{3C2EF6CA-8BAE-44BE-9ECF-E75DB5FB6E01}" locklevel="0" colspan="1" rowspan="1" labelid="{237B049D-A5AB-4691-BAB5-67B166F510BF}">
+                        <labels>
+                          <label description="Line Name" languagecode="1033" />
+                        </labels>
+                        <control id="est_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_name" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{AF8ACD0A-8BAF-425F-9FCB-6CB48B4D88F0}" locklevel="0" colspan="1" rowspan="1" labelid="{134B3B99-2F28-4613-B87E-8FCDB70214A1}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="est_project" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_project" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6EF5B5B1-ADC2-4DD0-91BF-6BDE502BB395}" locklevel="0" colspan="1" rowspan="1" labelid="{E98C4FFE-246A-45B7-9255-3BAB7C568ED9}">
+                        <labels>
+                          <label description="Project Task" languagecode="1033" />
+                        </labels>
+                        <control id="est_projecttask" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_projecttask" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{CE89D16A-6EBA-4738-BD9B-4087F970FC69}" locklevel="0" colspan="1" rowspan="1" labelid="{C4B668A6-0D2E-443E-B01F-85A3A3FD9E1D}">
+                        <labels>
+                          <label description="Role / Resource Category" languagecode="1033" />
+                        </labels>
+                        <control id="est_resourcecategory" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_resourcecategory" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8772CB8F-1189-491E-9368-91F2089D8E5A}" locklevel="0" colspan="1" rowspan="1" labelid="{11C89EC6-E82F-4C14-B97F-E94DC673B05E}">
+                        <labels>
+                          <label description="Quantity" languagecode="1033" />
+                        </labels>
+                        <control id="est_quantity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="est_quantity" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{00E6BE99-9BF4-4C80-8E17-7843DD008114}" locklevel="0" colspan="1" rowspan="1" labelid="{8B349802-DD5A-4618-B649-A134F0DCE818}">
+                        <labels>
+                          <label description="Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="est_startdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="est_startdate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7E9DF42A-4F63-4793-9AA8-F8E8378EF4E4}" locklevel="0" colspan="1" rowspan="1" labelid="{30439279-89F2-4F1F-B274-7ECE4AB678EE}">
+                        <labels>
+                          <label description="End Date" languagecode="1033" />
+                        </labels>
+                        <control id="est_enddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="est_enddate" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%">
+              <sections>
+                <section id="{36D318B9-F47C-4265-BAD0-EB277DE854F0}" name="tab_1_column_2_section_1" columns="1" showlabel="true" showbar="false" IsUserDefined="0" labelwidth="130" labelid="{C2A7B05A-A457-4F8F-95E6-5E87015CDA63}">
+                  <labels>
+                    <label description="Recommended" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{E926BB0E-FE86-45B8-8F52-462F324101EF}" locklevel="0" colspan="1" rowspan="1" labelid="{D729DEC8-CF77-4FD0-AB0D-00D734D87CEA}">
+                        <labels>
+                          <label description="Transaction Classification" languagecode="1033" />
+                        </labels>
+                        <control id="est_transactionclassification" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="est_transactionclassification" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9DCEFC28-0149-456A-B298-756897A77C9D}" locklevel="0" colspan="1" rowspan="1" labelid="{1D7DE24F-3F54-45DC-AF9C-8D4C1B13CCEC}">
+                        <labels>
+                          <label description="Unit" languagecode="1033" />
+                        </labels>
+                        <control id="est_uom" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_uom" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{32969E8C-34DF-43AF-828F-F59868FC16A0}" locklevel="0" colspan="1" rowspan="1" labelid="{4E5A75B3-AD47-4BD9-9AC2-8C3616B6801C}">
+                        <labels>
+                          <label description="Transaction Category" languagecode="1033" />
+                        </labels>
+                        <control id="est_transactioncategory" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_transactioncategory" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{20D9F5D8-136F-4540-B1A9-042396CECDAF}" locklevel="0" colspan="1" rowspan="1" labelid="{011DD1CD-676A-49CF-BE15-A4DCCB33D57B}">
+                        <labels>
+                          <label description="Product" languagecode="1033" />
+                        </labels>
+                        <control id="est_product" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_product" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{99E3C03E-3574-4A7D-B595-E504A27B1A55}" locklevel="0" colspan="1" rowspan="1" labelid="{B77DB831-0EBD-4E65-A194-5844C9F6EBAC}">
+                        <labels>
+                          <label description="Write-in Product Name (if not in catalog)" languagecode="1033" />
+                        </labels>
+                        <control id="est_writeinproductname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_writeinproductname" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3AC7797E-44EA-4AE7-B0DA-BBFDE6C882B9}" locklevel="0" colspan="1" rowspan="1" labelid="{CF2AABB4-2260-4CBB-946A-3A2D7A938C2A}">
+                        <labels>
+                          <label description="Cost Price List" languagecode="1033" />
+                        </labels>
+                        <control id="est_costpricelistname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_costpricelistname" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8578EB1E-8F32-4F7B-8ABE-157F9D04BC86}" locklevel="0" colspan="1" rowspan="1" labelid="{85787A9A-5322-4328-947A-E4554189CED9}">
+                        <labels>
+                          <label description="Cost Rate" languagecode="1033" />
+                        </labels>
+                        <control id="est_costrate" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="est_costrate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{49D1EFFB-CCE0-4525-BD44-66704691E4EC}" locklevel="0" colspan="1" rowspan="1" labelid="{D9147868-94C0-4578-A551-651D07EE2A01}">
+                        <labels>
+                          <label description="Sales Price List" languagecode="1033" />
+                        </labels>
+                        <control id="est_salespricelistname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_salespricelistname" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8B34F30F-0231-4C2A-B41E-92D93D2A4C85}" locklevel="0" colspan="1" rowspan="1" labelid="{1964B03B-FE9F-4C86-BB62-06DEE37A587C}">
+                        <labels>
+                          <label description="Sale Rate" languagecode="1033" />
+                        </labels>
+                        <control id="est_salerate" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="est_salerate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{5DD2F522-327D-42BA-8926-B647D92D9AA3}" locklevel="0" colspan="1" rowspan="1" labelid="{C7C57669-95F9-4ECD-BC3B-D4A448F0E0DE}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="est_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="est_description" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="33%">
+              <sections>
+                <section id="{50CA18B5-9EF1-4689-A63F-C58662058E0B}" name="tab_1_column_3_section_1" columns="1" showlabel="false" showbar="false" IsUserDefined="0" labelwidth="130" labelid="{E66D46ED-8505-4F91-8D80-21549DEA1D39}" visible="false">
+                  <labels>
+                    <label description="New Section" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{227E605C-2B3B-4130-B040-919F074CFD59}" labelid="{8E102ACD-F688-488E-B519-E99246DBCE2B}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Estimate Import Quick Create" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Quick Create form for estimate import lines; filters Project Task by selected Project." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>
