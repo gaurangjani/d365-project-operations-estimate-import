@@ -83,7 +83,7 @@
     </Publisher>
     <RootComponents>
       <RootComponent type="1" schemaName="est_estimateimport" behavior="0" />
-      <RootComponent type="1" schemaName="msdyn_estimateline" behavior="0" />
+      <RootComponent type="1" schemaName="msdyn_estimateline" behavior="1" />
       <RootComponent type="20" id="{5db34e4a-2241-43db-ad6d-4fd5990cdc09}" behavior="0" />
       <RootComponent type="29" id="{1e91d3a3-a9aa-f111-aaac-7ced8d9eae55}" behavior="0" />
     </RootComponents>
