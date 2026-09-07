@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{9a711e35-0267-4ea1-80ab-6d7d48a8056c}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="est_name" select="1" icon="1" preview="1">
+        <row name="result" id="est_estimateimportid">
+          <cell name="est_name" width="180" />
+          <cell name="est_project" width="130" />
+          <cell name="est_projecttask" width="130" />
+          <cell name="est_resourcecategory" width="130" />
+          <cell name="est_transactionclassification" width="110" />
+          <cell name="est_quantity" width="80" />
+          <cell name="est_uom" width="90" />
+          <cell name="est_costrate" width="90" />
+          <cell name="est_salerate" width="90" />
+          <cell name="est_startdate" width="90" />
+          <cell name="est_enddate" width="90" />
+          <cell name="est_transactioncategory" width="120" />
+          <cell name="est_product" width="120" />
+          <cell name="est_processingstatus" width="110" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="est_estimateimport">
+          <attribute name="est_estimateimportid" />
+          <attribute name="est_name" />
+          <attribute name="est_project" />
+          <attribute name="est_projecttask" />
+          <attribute name="est_resourcecategory" />
+          <attribute name="est_transactionclassification" />
+          <attribute name="est_quantity" />
+          <attribute name="est_uom" />
+          <attribute name="est_costrate" />
+          <attribute name="est_salerate" />
+          <attribute name="est_startdate" />
+          <attribute name="est_enddate" />
+          <attribute name="est_transactioncategory" />
+          <attribute name="est_product" />
+          <attribute name="est_processingstatus" />
+          <order attribute="est_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Inactive Estimate Imports" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

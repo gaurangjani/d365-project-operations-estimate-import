@@ -1,0 +1,646 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps-1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "est_SharedCommonDataServiceForApps"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_row_is_added_modified_or_deleted": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 7,
+              "subscriptionRequest/entityname": "est_estimateimport",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filteringattributes": "est_name,est_quantity,est_costrate,est_salerate,est_startdate,est_enddate,est_description,est_transactionclassification,est_writeinproductname,est_costpricelistname,est_salespricelistname"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps-1"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Estimate_Id": {
+          "runAfter": {},
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "EstimateId",
+                "type": "string",
+                "value": ""
+              }
+            ]
+          }
+        },
+        "Switch_On_Change_Type": {
+          "runAfter": {
+            "Initialize_Estimate_Id": [
+              "Succeeded"
+            ]
+          },
+          "cases": {
+            "Row_Deleted": {
+              "case": "Delete",
+              "actions": {
+                "Compose_Deleted_Row_Id": {
+                  "runAfter": {},
+                  "type": "Compose",
+                  "inputs": "@coalesce(triggerOutputs()?['body/est_estimateimportid'], triggerOutputs()?['body/ItemInternalId'], '')"
+                },
+                "Check_Deleted_Row_Id_Present": {
+                  "actions": {
+                    "List_Lines_By_Source_Import": {
+                      "runAfter": {},
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "entityName": "msdyn_estimatelines",
+                          "$select": "msdyn_estimatelineid",
+                          "$filter": "@concat('est_sourceimportid eq ''', outputs('Compose_Deleted_Row_Id'), '''')",
+                          "$top": 1
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "ListRecords",
+                          "connectionName": "shared_commondataserviceforapps-1"
+                        }
+                      }
+                    },
+                    "Check_Source_Line_Found": {
+                      "actions": {
+                        "Delete_Cost_Estimate_Line": {
+                          "runAfter": {},
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "msdyn_estimatelines",
+                              "recordId": "@first(body('List_Lines_By_Source_Import')?['value'])?['msdyn_estimatelineid']"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "DeleteRecord",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "List_Lines_By_Source_Import": [
+                          "Succeeded"
+                        ]
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "expression": {
+                        "greater": [
+                          "@length(coalesce(body('List_Lines_By_Source_Import')?['value'], json('[]')))",
+                          0
+                        ]
+                      },
+                      "type": "If"
+                    }
+                  },
+                  "runAfter": {
+                    "Compose_Deleted_Row_Id": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "expression": {
+                    "not": {
+                      "equals": [
+                        "@outputs('Compose_Deleted_Row_Id')",
+                        ""
+                      ]
+                    }
+                  },
+                  "type": "If"
+                },
+                "Compose_Delete_Summary": {
+                  "runAfter": {
+                    "Check_Deleted_Row_Id_Present": [
+                      "Succeeded",
+                      "Failed",
+                      "Skipped"
+                    ]
+                  },
+                  "type": "Compose",
+                  "inputs": "@concat('Staging row ', outputs('Compose_Deleted_Row_Id'), ' was deleted. Looked up the paired Cost estimate line via the est_sourceimportid back-reference and removed it if found; Project Operations cascades the delete to the paired Sales line.')"
+                }
+              }
+            }
+          },
+          "default": {
+            "actions": {
+              "Get_Staging_Row": {
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "parameters": {
+                    "entityName": "est_estimateimports",
+                    "recordId": "@triggerOutputs()?['body/est_estimateimportid']"
+                  },
+                  "host": {
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                    "operationId": "GetItem",
+                    "connectionName": "shared_commondataserviceforapps-1"
+                  }
+                }
+              },
+              "Route_Create_Or_Resync": {
+                "actions": {
+                  "Try_Update_Paired_Lines": {
+                    "actions": {
+                      "Update_Cost_Estimate_Line": {
+                        "runAfter": {
+                          "Get_Existing_Cost_Line": [
+                            "Succeeded"
+                          ]
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "msdyn_estimatelines",
+                            "recordId": "@outputs('Get_Staging_Row')?['body/_est_costestimateline_value']",
+                            "item/msdyn_description": "@coalesce(outputs('Get_Staging_Row')?['body/est_name'], '')",
+                            "item/msdyn_quantity": "@float(coalesce(outputs('Get_Staging_Row')?['body/est_quantity'], 0))",
+                            "item/msdyn_price": "@float(coalesce(outputs('Get_Staging_Row')?['body/est_costrate'], 0))",
+                            "item/msdyn_amount": "@mul(float(coalesce(outputs('Get_Staging_Row')?['body/est_quantity'], 0)), float(coalesce(outputs('Get_Staging_Row')?['body/est_costrate'], 0)))",
+                            "item/msdyn_startdatetime": "@outputs('Get_Staging_Row')?['body/est_startdate']",
+                            "item/msdyn_enddatetime": "@outputs('Get_Staging_Row')?['body/est_enddate']",
+                            "item/msdyn_documentdate": "@outputs('Get_Staging_Row')?['body/est_startdate']",
+                            "item/msdyn_isproductoverridden": "@empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], ''))",
+                            "item/msdyn_writeinproductdescription": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], '')), coalesce(outputs('Get_Staging_Row')?['body/est_writeinproductname'], outputs('Get_Staging_Row')?['body/est_name'], ''), '')",
+                            "item/msdyn_Task@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_projecttask_value'], '')), null, concat('/msdyn_projecttasks(', outputs('Get_Staging_Row')?['body/_est_projecttask_value'], ')'))",
+                            "item/msdyn_ResourceCategory@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_resourcecategory_value'], '')), null, concat('/bookableresourcecategories(', outputs('Get_Staging_Row')?['body/_est_resourcecategory_value'], ')'))",
+                            "item/msdyn_TransactionCategory@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_transactioncategory_value'], '')), null, concat('/msdyn_transactioncategories(', outputs('Get_Staging_Row')?['body/_est_transactioncategory_value'], ')'))",
+                            "item/msdyn_Product@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], '')), null, concat('/products(', outputs('Get_Staging_Row')?['body/_est_product_value'], ')'))",
+                            "item/msdyn_Unit@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_uom_value'], '')), if(empty(coalesce(outputs('Get_Existing_Cost_Line')?['body/_msdyn_unit_value'], '')), null, concat('/uoms(', outputs('Get_Existing_Cost_Line')?['body/_msdyn_unit_value'], ')')), concat('/uoms(', outputs('Get_Staging_Row')?['body/_est_uom_value'], ')'))",
+                            "item/est_sourceimportid": "@coalesce(outputs('Get_Staging_Row')?['body/est_estimateimportid'], triggerOutputs()?['body/est_estimateimportid'], '')"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      },
+                      "Update_Sales_Estimate_Line": {
+                        "runAfter": {
+                          "Update_Cost_Estimate_Line": [
+                            "Succeeded"
+                          ]
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "msdyn_estimatelines",
+                            "recordId": "@outputs('Get_Staging_Row')?['body/_est_saleestimateline_value']",
+                            "item/msdyn_price": "@float(coalesce(outputs('Get_Staging_Row')?['body/est_salerate'], 0))",
+                            "item/msdyn_amount": "@mul(float(coalesce(outputs('Get_Staging_Row')?['body/est_quantity'], 0)), float(coalesce(outputs('Get_Staging_Row')?['body/est_salerate'], 0)))"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      },
+                      "Update_Staging_Row_Resync_Success": {
+                        "runAfter": {
+                          "Update_Sales_Estimate_Line": [
+                            "Succeeded"
+                          ]
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "est_estimateimports",
+                            "recordId": "@triggerOutputs()?['body/est_estimateimportid']",
+                            "item/est_processingstatus": 275270012,
+                            "item/est_processingnotes": "@concat('Re-synced to the existing Cost and Sales estimate lines on ', formatDateTime(utcNow(), 'yyyy-MM-dd HH:mm'), ' UTC.')"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      },
+                      "Get_Existing_Cost_Line": {
+                        "runAfter": {},
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "msdyn_estimatelines",
+                            "recordId": "@outputs('Get_Staging_Row')?['body/_est_costestimateline_value']"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "GetItem",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    },
+                    "type": "Scope"
+                  },
+                  "Catch_Update_Failure": {
+                    "actions": {
+                      "Filter_Failed_Resync_Actions": {
+                        "type": "Query",
+                        "inputs": {
+                          "from": "@result('Try_Update_Paired_Lines')",
+                          "where": "@equals(item()?['status'], 'Failed')"
+                        }
+                      },
+                      "Compose_Resync_Error_Details": {
+                        "runAfter": {
+                          "Filter_Failed_Resync_Actions": [
+                            "Succeeded"
+                          ]
+                        },
+                        "type": "Compose",
+                        "inputs": "@take(concat(coalesce(first(body('Filter_Failed_Resync_Actions'))?['name'], 'unknown action'), ' :: ', string(first(body('Filter_Failed_Resync_Actions'))?['error']), ' :: ', string(first(body('Filter_Failed_Resync_Actions'))?['outputs']?['body'])), 1800)"
+                      },
+                      "Update_Staging_Row_Resync_Error": {
+                        "runAfter": {
+                          "Compose_Resync_Error_Details": [
+                            "Succeeded"
+                          ]
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "est_estimateimports",
+                            "recordId": "@triggerOutputs()?['body/est_estimateimportid']",
+                            "item/est_processingstatus": 275270013,
+                            "item/est_processingnotes": "@concat('Estimate import failed while re-syncing the existing estimate lines. ', outputs('Compose_Resync_Error_Details'))"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "UpdateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Try_Update_Paired_Lines": [
+                        "Failed",
+                        "TimedOut"
+                      ]
+                    },
+                    "type": "Scope"
+                  }
+                },
+                "runAfter": {
+                  "Get_Staging_Row": [
+                    "Succeeded"
+                  ]
+                },
+                "else": {
+                  "actions": {
+                    "Try_Create_Paired_Lines": {
+                      "actions": {
+                        "Get_Project": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "msdyn_projects",
+                              "recordId": "@outputs('Get_Staging_Row')?['body/_est_project_value']"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "GetItem",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        },
+                        "Compose_Transaction_Classification": {
+                          "runAfter": {
+                            "Get_Project": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "Compose",
+                          "inputs": "@if(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270000), 192350000, if(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270001), 192350001, if(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270002), 192350002, if(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270003), 192350003, if(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270004), 192350004, if(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270005), 192350005, 690970002))))))"
+                        },
+                        "List_Estimate_Headers": {
+                          "runAfter": {
+                            "Compose_Transaction_Classification": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "msdyn_estimates",
+                              "$filter": "@concat('_msdyn_project_value eq ', outputs('Get_Project')?['body/msdyn_projectid'])",
+                              "$top": 1
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "ListRecords",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        },
+                        "Check_Estimate_Header_Exists": {
+                          "actions": {
+                            "Set_Estimate_Id_From_Existing": {
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "EstimateId",
+                                "value": "@{first(body('List_Estimate_Headers')?['value'])?['msdyn_estimateid']}"
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "List_Estimate_Headers": [
+                              "Succeeded"
+                            ]
+                          },
+                          "else": {
+                            "actions": {
+                              "Create_Estimate_Header": {
+                                "type": "OpenApiConnection",
+                                "inputs": {
+                                  "parameters": {
+                                    "entityName": "msdyn_estimates",
+                                    "item/msdyn_description": "Auto-created for Estimate Import",
+                                    "item/msdyn_estimateheadertype": 192350000,
+                                    "item/msdyn_Project@odata.bind": "/msdyn_projects(@{outputs('Get_Project')?['body/msdyn_projectid']})"
+                                  },
+                                  "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                    "operationId": "CreateRecord",
+                                    "connectionName": "shared_commondataserviceforapps-1"
+                                  }
+                                }
+                              },
+                              "Set_Estimate_Id_From_New": {
+                                "runAfter": {
+                                  "Create_Estimate_Header": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "EstimateId",
+                                  "value": "@{outputs('Create_Estimate_Header')?['body/msdyn_estimateid']}"
+                                }
+                              }
+                            }
+                          },
+                          "expression": {
+                            "greater": [
+                              "@length(coalesce(body('List_Estimate_Headers')?['value'], json('[]')))",
+                              0
+                            ]
+                          },
+                          "type": "If"
+                        },
+                        "Create_Cost_Estimate_Line": {
+                          "runAfter": {
+                            "Check_Estimate_Header_Exists": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "msdyn_estimatelines",
+                              "item/msdyn_Estimate@odata.bind": "/msdyn_estimates(@{variables('EstimateId')})",
+                              "item/msdyn_Project@odata.bind": "/msdyn_projects(@{outputs('Get_Project')?['body/msdyn_projectid']})",
+                              "item/msdyn_transactionclassification": "@outputs('Compose_Transaction_Classification')",
+                              "item/msdyn_transactiontypecode": 192350000,
+                              "item/msdyn_description": "@coalesce(outputs('Get_Staging_Row')?['body/est_name'], '')",
+                              "item/msdyn_quantity": "@float(coalesce(outputs('Get_Staging_Row')?['body/est_quantity'], 0))",
+                              "item/msdyn_price": "@float(coalesce(outputs('Get_Staging_Row')?['body/est_costrate'], 0))",
+                              "item/msdyn_amount": "@mul(float(coalesce(outputs('Get_Staging_Row')?['body/est_quantity'], 0)), float(coalesce(outputs('Get_Staging_Row')?['body/est_costrate'], 0)))",
+                              "item/msdyn_startdatetime": "@outputs('Get_Staging_Row')?['body/est_startdate']",
+                              "item/msdyn_enddatetime": "@outputs('Get_Staging_Row')?['body/est_enddate']",
+                              "item/msdyn_documentdate": "@outputs('Get_Staging_Row')?['body/est_startdate']",
+                              "item/msdyn_isproductoverridden": "@empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], ''))",
+                              "item/msdyn_writeinproductdescription": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], '')), coalesce(outputs('Get_Staging_Row')?['body/est_writeinproductname'], outputs('Get_Staging_Row')?['body/est_name'], ''), '')",
+                              "item/msdyn_Task@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_projecttask_value'], '')), null, concat('/msdyn_projecttasks(', outputs('Get_Staging_Row')?['body/_est_projecttask_value'], ')'))",
+                              "item/msdyn_ResourceCategory@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_resourcecategory_value'], '')), null, concat('/bookableresourcecategories(', outputs('Get_Staging_Row')?['body/_est_resourcecategory_value'], ')'))",
+                              "item/msdyn_TransactionCategory@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_transactioncategory_value'], '')), null, concat('/msdyn_transactioncategories(', outputs('Get_Staging_Row')?['body/_est_transactioncategory_value'], ')'))",
+                              "item/msdyn_Product@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], '')), null, concat('/products(', outputs('Get_Staging_Row')?['body/_est_product_value'], ')'))",
+                              "item/msdyn_Unit@odata.bind": "@if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_uom_value'], '')), null, concat('/uoms(', outputs('Get_Staging_Row')?['body/_est_uom_value'], ')'))",
+                              "item/est_sourceimportid": "@coalesce(outputs('Get_Staging_Row')?['body/est_estimateimportid'], triggerOutputs()?['body/est_estimateimportid'], '')"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "CreateRecord",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        },
+                        "Get_Cost_Line_With_Pair": {
+                          "runAfter": {
+                            "Create_Cost_Estimate_Line": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "msdyn_estimatelines",
+                              "recordId": "@outputs('Create_Cost_Estimate_Line')?['body/msdyn_estimatelineid']"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "GetItem",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        },
+                        "Check_Paired_Sales_Line_Exists": {
+                          "actions": {
+                            "Update_Auto_Created_Sales_Line": {
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "parameters": {
+                                  "entityName": "msdyn_estimatelines",
+                                  "recordId": "@outputs('Get_Cost_Line_With_Pair')?['body/_msdyn_pairedsalesline_value']",
+                                  "item/msdyn_price": "@float(coalesce(outputs('Get_Staging_Row')?['body/est_salerate'], 0))",
+                                  "item/msdyn_amount": "@mul(float(coalesce(outputs('Get_Staging_Row')?['body/est_quantity'], 0)), float(coalesce(outputs('Get_Staging_Row')?['body/est_salerate'], 0)))"
+                                },
+                                "host": {
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                  "operationId": "UpdateRecord",
+                                  "connectionName": "shared_commondataserviceforapps-1"
+                                }
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Get_Cost_Line_With_Pair": [
+                              "Succeeded"
+                            ]
+                          },
+                          "else": {
+                            "actions": {}
+                          },
+                          "expression": {
+                            "not": {
+                              "equals": [
+                                "@coalesce(outputs('Get_Cost_Line_With_Pair')?['body/_msdyn_pairedsalesline_value'], '')",
+                                ""
+                              ]
+                            }
+                          },
+                          "type": "If"
+                        },
+                        "Compose_Processing_Notes": {
+                          "runAfter": {
+                            "Check_Paired_Sales_Line_Exists": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "Compose",
+                          "inputs": "@concat('Processed successfully. Cost line created; Project Operations auto-created the paired Unbilled Sales line and the flow set its sale rate.', if(and(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270000), empty(coalesce(outputs('Get_Staging_Row')?['body/_est_resourcecategory_value'], ''))), ' Recommendation: Resource Category is normally set for Time lines but was left blank.', ''), if(and(equals(outputs('Get_Staging_Row')?['body/est_transactionclassification'], 275270001), empty(coalesce(outputs('Get_Staging_Row')?['body/_est_transactioncategory_value'], ''))), ' Recommendation: Transaction Category is normally set for Expense lines but was left blank.', ''), if(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_projecttask_value'], '')), ' Note: No Project Task supplied; estimate lines were created at project level.', ''), if(and(empty(coalesce(outputs('Get_Staging_Row')?['body/_est_product_value'], '')), empty(coalesce(outputs('Get_Staging_Row')?['body/est_writeinproductname'], ''))), ' Note: Neither Product nor Write-in Product Name was supplied.', ''), if(empty(coalesce(outputs('Get_Cost_Line_With_Pair')?['body/_msdyn_pairedsalesline_value'], '')), ' Warning: No paired Sales line was generated for this Cost line.', ''))"
+                        },
+                        "Update_Staging_Row_Success": {
+                          "runAfter": {
+                            "Compose_Processing_Notes": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "est_estimateimports",
+                              "recordId": "@triggerOutputs()?['body/est_estimateimportid']",
+                              "item/est_costestimateline@odata.bind": "/msdyn_estimatelines(@{outputs('Create_Cost_Estimate_Line')?['body/msdyn_estimatelineid']})",
+                              "item/est_saleestimateline@odata.bind": "@if(empty(coalesce(outputs('Get_Cost_Line_With_Pair')?['body/_msdyn_pairedsalesline_value'], '')), null, concat('/msdyn_estimatelines(', outputs('Get_Cost_Line_With_Pair')?['body/_msdyn_pairedsalesline_value'], ')'))",
+                              "item/est_processingstatus": 275270012,
+                              "item/est_processingnotes": "@outputs('Compose_Processing_Notes')"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "UpdateRecord",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        }
+                      },
+                      "type": "Scope"
+                    },
+                    "Catch_Create_Failure": {
+                      "actions": {
+                        "Filter_Failed_Create_Actions": {
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@result('Try_Create_Paired_Lines')",
+                            "where": "@equals(item()?['status'], 'Failed')"
+                          }
+                        },
+                        "Compose_Create_Error_Details": {
+                          "runAfter": {
+                            "Filter_Failed_Create_Actions": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "Compose",
+                          "inputs": "@take(concat(coalesce(first(body('Filter_Failed_Create_Actions'))?['name'], 'unknown action'), ' :: ', string(first(body('Filter_Failed_Create_Actions'))?['error']), ' :: ', string(first(body('Filter_Failed_Create_Actions'))?['outputs']?['body'])), 1800)"
+                        },
+                        "Update_Staging_Row_Create_Error": {
+                          "runAfter": {
+                            "Compose_Create_Error_Details": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "entityName": "est_estimateimports",
+                              "recordId": "@triggerOutputs()?['body/est_estimateimportid']",
+                              "item/est_processingstatus": 275270013,
+                              "item/est_processingnotes": "@concat('Estimate import failed while creating the paired estimate lines. ', outputs('Compose_Create_Error_Details'))"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "UpdateRecord",
+                              "connectionName": "shared_commondataserviceforapps-1"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Try_Create_Paired_Lines": [
+                          "Failed",
+                          "TimedOut"
+                        ]
+                      },
+                      "type": "Scope"
+                    }
+                  }
+                },
+                "expression": {
+                  "and": [
+                    {
+                      "equals": [
+                        "@triggerOutputs()?['body/SdkMessage']",
+                        "Update"
+                      ]
+                    },
+                    {
+                      "not": {
+                        "equals": [
+                          "@coalesce(outputs('Get_Staging_Row')?['body/_est_costestimateline_value'], '')",
+                          ""
+                        ]
+                      }
+                    },
+                    {
+                      "not": {
+                        "equals": [
+                          "@coalesce(outputs('Get_Staging_Row')?['body/_est_saleestimateline_value'], '')",
+                          ""
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "type": "If"
+              }
+            }
+          },
+          "expression": "@triggerOutputs()?['body/SdkMessage']",
+          "type": "Switch"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

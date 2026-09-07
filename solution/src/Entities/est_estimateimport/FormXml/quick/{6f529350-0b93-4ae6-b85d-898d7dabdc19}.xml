@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{6f529350-0b93-4ae6-b85d-898d7dabdc19}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{91e5a756-ac8e-4c81-a8ca-5369080b1ad6}" IsUserDefined="1">
+          <labels>
+            <label description="" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{568ef602-e4f1-4721-bb5c-9429b4f8d8c5}">
+                  <labels>
+                    <label description="GENERAL" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{4de17c50-b088-4e47-914c-3d58e93394cd}">
+                        <labels>
+                          <label description="Line Name" languagecode="1033" />
+                        </labels>
+                        <control id="est_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a9e50f20-662e-4dff-98e6-55406b5d27e7}">
+                        <labels>
+                          <label description="Project" languagecode="1033" />
+                        </labels>
+                        <control id="est_project" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_project" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d7270d25-78f1-4220-a93d-5ece184907d9}">
+                        <labels>
+                          <label description="Project Task" languagecode="1033" />
+                        </labels>
+                        <control id="est_projecttask" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_projecttask" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e19dedd3-679a-4bb5-a2cb-cd8dbc2095a6}">
+                        <labels>
+                          <label description="Role / Resource Category" languagecode="1033" />
+                        </labels>
+                        <control id="est_resourcecategory" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_resourcecategory" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{058adcc1-bf64-49c5-8091-9331e597ae93}">
+                        <labels>
+                          <label description="Quantity" languagecode="1033" />
+                        </labels>
+                        <control id="est_quantity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="est_quantity" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{acbcd720-9891-4957-b84e-8f286c541639}">
+                        <labels>
+                          <label description="Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="est_startdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="est_startdate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8b8cc6bf-b06d-42f0-8e06-f98f10bcce8d}">
+                        <labels>
+                          <label description="End Date" languagecode="1033" />
+                        </labels>
+                        <control id="est_enddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="est_enddate" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section showlabel="true" showbar="false" IsUserDefined="0" id="{0c4e5038-2120-40e1-8be1-efacbce70f3e}">
+                  <labels>
+                    <label description="Recommended" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{2d9356e9-0f88-473f-995f-95eaed328a35}">
+                        <labels>
+                          <label description="Transaction Classification" languagecode="1033" />
+                        </labels>
+                        <control id="est_transactionclassification" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="est_transactionclassification" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{60e751f1-c8ce-454f-a54e-d589ad1dba24}">
+                        <labels>
+                          <label description="Unit" languagecode="1033" />
+                        </labels>
+                        <control id="est_uom" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_uom" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{7a1c2b3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d}">
+                        <labels>
+                          <label description="Transaction Category" languagecode="1033" />
+                        </labels>
+                        <control id="est_transactioncategory" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_transactioncategory" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8b2d3c4e-5f60-4b7c-9d8e-0f1a2b3c4d5e}">
+                        <labels>
+                          <label description="Product" languagecode="1033" />
+                        </labels>
+                        <control id="est_product" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_product" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9c3e4d5f-6071-4c8d-ae9f-1a2b3c4d5e6f}">
+                        <labels>
+                          <label description="Write-in Product Name (if not in catalog)" languagecode="1033" />
+                        </labels>
+                        <control id="est_writeinproductname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_writeinproductname" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{cc387fd6-2e04-471a-9e55-78dc3734938e}">
+                        <labels>
+                          <label description="Cost Price List" languagecode="1033" />
+                        </labels>
+                        <control id="est_costpricelistname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_costpricelistname" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1216ada2-6789-4ee7-afec-c86fe9bf5107}">
+                        <labels>
+                          <label description="Cost Rate" languagecode="1033" />
+                        </labels>
+                        <control id="est_costrate" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="est_costrate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e0c3277d-e0da-44b6-a43e-d560e2b9969a}">
+                        <labels>
+                          <label description="Sales Price List" languagecode="1033" />
+                        </labels>
+                        <control id="est_salespricelistname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="est_salespricelistname" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b3437ff2-867a-4625-8080-72eae2727115}">
+                        <labels>
+                          <label description="Sale Rate" languagecode="1033" />
+                        </labels>
+                        <control id="est_salerate" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="est_salerate" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{043c3ce3-87ec-45d4-a7bf-6f61716f75dd}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="est_description" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="est_description" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Estimate Import" languagecode="1033" />
+    </LocalizedNames>
+  </systemform>
+</forms>

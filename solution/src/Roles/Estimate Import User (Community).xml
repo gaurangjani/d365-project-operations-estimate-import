@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Role id="{5db34e4a-2241-43db-ad6d-4fd5990cdc09}" name="Estimate Import User (Community)" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
+  <Description>Grants access to create and manage Estimate Import rows and view the resulting Project Operations Estimate Lines they generate.</Description>
+  <RolePrivileges>
+    <RolePrivilege name="prvAppendest_estimateimport" level="Local" />
+    <RolePrivilege name="prvAppendToest_estimateimport" level="Local" />
+    <RolePrivilege name="prvAppendTomsdyn_estimate" level="Local" />
+    <RolePrivilege name="prvAppendTomsdyn_estimateline" level="Local" />
+    <RolePrivilege name="prvAssignest_estimateimport" level="Local" />
+    <RolePrivilege name="prvCreateest_estimateimport" level="Local" />
+    <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvDeleteest_estimateimport" level="Local" />
+    <RolePrivilege name="prvReadAppModule" level="Global" />
+    <RolePrivilege name="prvReadBookableResourceCategory" level="Global" />
+    <RolePrivilege name="prvReadest_estimateimport" level="Local" />
+    <RolePrivilege name="prvReadmsdyn_estimate" level="Local" />
+    <RolePrivilege name="prvReadmsdyn_estimateline" level="Local" />
+    <RolePrivilege name="prvReadmsdyn_project" level="Local" />
+    <RolePrivilege name="prvReadmsdyn_projecttask" level="Local" />
+    <RolePrivilege name="prvReadmsdyn_transactioncategory" level="Global" />
+    <RolePrivilege name="prvReadProduct" level="Global" />
+    <RolePrivilege name="prvReadSharePointData" level="Global" />
+    <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvReadUser" level="Global" />
+    <RolePrivilege name="prvShareest_estimateimport" level="Local" />
+    <RolePrivilege name="prvWriteest_estimateimport" level="Local" />
+    <RolePrivilege name="prvWriteSharePointData" level="Global" />
+  </RolePrivileges>
+</Role>

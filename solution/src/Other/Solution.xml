@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.26084.142" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26084.142" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.26084.00142">
+  <SolutionManifest>
+    <UniqueName>EstimateImportCommunity</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Estimate Import (Community Edition)" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Open-source staging table + flow that creates paired Cost/Sales Estimate Lines in Project Operations. https://github.com/gaurangjani/d365-project-operations-estimate-import" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>CommunityTools</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Community Tools" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Generic publisher used for open-source Dataverse solutions." languagecode="1033" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>est</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>48472</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="1" schemaName="est_estimateimport" behavior="0" />
+      <RootComponent type="1" schemaName="msdyn_estimateline" behavior="0" />
+      <RootComponent type="20" id="{5db34e4a-2241-43db-ad6d-4fd5990cdc09}" behavior="0" />
+      <RootComponent type="29" id="{1e91d3a3-a9aa-f111-aaac-7ced8d9eae55}" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_estimate" displayName="Estimate" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="29" displayName="Community - Process Estimate Import" id="{1e91d3a3-a9aa-f111-aaac-7ced8d9eae55}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_estimateline" displayName="Estimate Line" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="1" schemaName="msdyn_estimateline" displayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_estimateline" displayName="Estimate Line" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_msdyn_estimateline_msdyn_estimateline_Origin" displayName="msdyn_msdyn_estimateline_msdyn_estimateline_Origin" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_fact" displayName="Fact" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="1" schemaName="msdyn_estimateline" displayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_project" displayName="Project" solution="msdyn_ProjectServiceCore (1.0.0.87)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="29" displayName="Community - Process Estimate Import" id="{1e91d3a3-a9aa-f111-aaac-7ced8d9eae55}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_subcontractline" displayName="Subcontract Line" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="1" schemaName="msdyn_estimateline" displayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="msdyn_transactionconnection" displayName="Transaction Connection" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="1" schemaName="msdyn_estimateline" displayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_account_msdyn_estimateline_AccountCustomer" displayName="msdyn_account_msdyn_estimateline_AccountCustomer" parentSchemaName="account" parentDisplayName="Account" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_account_msdyn_estimateline_AccountCustomer" displayName="msdyn_account_msdyn_estimateline_AccountCustomer" parentSchemaName="account" parentDisplayName="Account" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_account_msdyn_estimateline_AccountVendor" displayName="msdyn_account_msdyn_estimateline_AccountVendor" parentSchemaName="account" parentDisplayName="Account" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_account_msdyn_estimateline_AccountVendor" displayName="msdyn_account_msdyn_estimateline_AccountVendor" parentSchemaName="account" parentDisplayName="Account" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_bookableresource_msdyn_estimateline_bookableresource" displayName="msdyn_bookableresource_msdyn_estimateline_bookableresource" parentSchemaName="bookableresource" parentDisplayName="Bookable Resource" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_bookableresource_msdyn_estimateline_bookableresource" displayName="msdyn_bookableresource_msdyn_estimateline_bookableresource" parentSchemaName="bookableresource" parentDisplayName="Bookable Resource" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_bookableresourcecategory_msdyn_estimateline_ResourceCategory" displayName="msdyn_bookableresourcecategory_msdyn_estimateline_ResourceCategory" parentSchemaName="bookableresourcecategory" parentDisplayName="Bookable Resource Category" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_bookableresourcecategory_msdyn_estimateline_ResourceCategory" displayName="msdyn_bookableresourcecategory_msdyn_estimateline_ResourceCategory" parentSchemaName="bookableresourcecategory" parentDisplayName="Bookable Resource Category" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_contact_msdyn_estimateline_ContactCustomer" displayName="msdyn_contact_msdyn_estimateline_ContactCustomer" parentSchemaName="contact" parentDisplayName="Contact" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_contact_msdyn_estimateline_ContactCustomer" displayName="msdyn_contact_msdyn_estimateline_ContactCustomer" parentSchemaName="contact" parentDisplayName="Contact" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_contact_msdyn_estimateline_ContactVendor" displayName="msdyn_contact_msdyn_estimateline_ContactVendor" parentSchemaName="contact" parentDisplayName="Contact" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_contact_msdyn_estimateline_ContactVendor" displayName="msdyn_contact_msdyn_estimateline_ContactVendor" parentSchemaName="contact" parentDisplayName="Contact" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_msdyn_estimate_msdyn_estimateline_Estimate" displayName="msdyn_msdyn_estimate_msdyn_estimateline_Estimate" parentSchemaName="msdyn_estimate" parentDisplayName="Estimate" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_msdyn_estimate_msdyn_estimateline_Estimate" displayName="msdyn_msdyn_estimate_msdyn_estimateline_Estimate" parentSchemaName="msdyn_estimate" parentDisplayName="Estimate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_msdyn_estimateline_msdyn_estimateline_Origin" displayName="msdyn_msdyn_estimateline_msdyn_estimateline_Origin" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_msdyn_estimateline_msdyn_estimateline_Origin" displayName="msdyn_msdyn_estimateline_msdyn_estimateline_Origin" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_msdyn_project_msdyn_estimateline_Project" displayName="msdyn_msdyn_project_msdyn_estimateline_Project" parentSchemaName="msdyn_project" parentDisplayName="Project" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_msdyn_project_msdyn_estimateline_Project" displayName="msdyn_msdyn_project_msdyn_estimateline_Project" parentSchemaName="msdyn_project" parentDisplayName="Project" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_msdyn_projecttask_msdyn_estimateline_Task" displayName="msdyn_msdyn_projecttask_msdyn_estimateline_Task" parentSchemaName="msdyn_projecttask" parentDisplayName="Project Task" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_msdyn_projecttask_msdyn_estimateline_Task" displayName="msdyn_msdyn_projecttask_msdyn_estimateline_Task" parentSchemaName="msdyn_projecttask" parentDisplayName="Project Task" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_msdyn_transactioncategory_msdyn_estimateline_TransactionCategory" displayName="msdyn_msdyn_transactioncategory_msdyn_estimateline_TransactionCategory" parentSchemaName="msdyn_transactioncategory" parentDisplayName="Transaction Category" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_msdyn_transactioncategory_msdyn_estimateline_TransactionCategory" displayName="msdyn_msdyn_transactioncategory_msdyn_estimateline_TransactionCategory" parentSchemaName="msdyn_transactioncategory" parentDisplayName="Transaction Category" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_organizationalunit_estimateline" displayName="msdyn_organizationalunit_estimateline" parentSchemaName="msdyn_organizationalunit" parentDisplayName="Organizational Unit" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_organizationalunit_estimateline" displayName="msdyn_organizationalunit_estimateline" parentSchemaName="msdyn_organizationalunit" parentDisplayName="Organizational Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_pricelevel_msdyn_estimateline_PriceList" displayName="msdyn_pricelevel_msdyn_estimateline_PriceList" parentSchemaName="pricelevel" parentDisplayName="Price List" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_pricelevel_msdyn_estimateline_PriceList" displayName="msdyn_pricelevel_msdyn_estimateline_PriceList" parentSchemaName="pricelevel" parentDisplayName="Price List" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_product_msdyn_estimateline_Product" displayName="msdyn_product_msdyn_estimateline_Product" parentSchemaName="product" parentDisplayName="Product" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_product_msdyn_estimateline_Product" displayName="msdyn_product_msdyn_estimateline_Product" parentSchemaName="product" parentDisplayName="Product" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_uom_msdyn_estimateline_Unit" displayName="msdyn_uom_msdyn_estimateline_Unit" parentSchemaName="uom" parentDisplayName="Unit" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_uom_msdyn_estimateline_Unit" displayName="msdyn_uom_msdyn_estimateline_Unit" parentSchemaName="uom" parentDisplayName="Unit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="10" schemaName="msdyn_uomschedule_msdyn_estimateline_UnitSchedule" displayName="msdyn_uomschedule_msdyn_estimateline_UnitSchedule" parentSchemaName="uomschedule" parentDisplayName="Unit Group" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_uomschedule_msdyn_estimateline_UnitSchedule" displayName="msdyn_uomschedule_msdyn_estimateline_UnitSchedule" parentSchemaName="uomschedule" parentDisplayName="Unit Group" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="msdyn_description" displayName="Description" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_estimateline_est_estimateimport_Cost" displayName="msdyn_estimateline_est_estimateimport_Cost" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="msdyn_description" displayName="Description" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_estimateline_est_estimateimport_Sale" displayName="msdyn_estimateline_est_estimateimport_Sale" parentSchemaName="msdyn_estimateline" parentDisplayName="Estimate Line" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="msdyn_name" displayName="Name" parentSchemaName="msdyn_transactioncategory" parentDisplayName="Transaction Category" solution="ProjectService (4.170.3509.4)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_transactioncategory_est_estimateimport" displayName="msdyn_transactioncategory_est_estimateimport" parentSchemaName="msdyn_transactioncategory" parentDisplayName="Transaction Category" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="msdyn_subject" displayName="Name" parentSchemaName="msdyn_project" parentDisplayName="Project" solution="msdyn_ProjectServiceCore (1.0.0.87)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_project_est_estimateimport" displayName="msdyn_project_est_estimateimport" parentSchemaName="msdyn_project" parentDisplayName="Project" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="msdyn_subject" displayName="Project Task Name" parentSchemaName="msdyn_projecttask" parentDisplayName="Project Task" solution="msdyn_ProjectServiceCore (1.0.0.87)">
+          <package appName="Project Operations" version="4.170.3509.4">ProjectOperations_Anchor (4.170.3509.4)</package>
+        </Required>
+        <Dependent type="10" schemaName="msdyn_projecttask_est_estimateimport" displayName="msdyn_projecttask_est_estimateimport" parentSchemaName="msdyn_projecttask" parentDisplayName="Project Task" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="bookableresourcecategory" parentDisplayName="Bookable Resource Category" solution="msdynce_Scheduling (9.0.0.0)">
+          <package appName="msdynce_Scheduling" version="9.0.7.3">Scheduling_Anchor (9.0.7.3)</package>
+        </Required>
+        <Dependent type="10" schemaName="new_BookableResourceCategory_est_estimateimport" displayName="new_BookableResourceCategory_est_estimateimport" parentSchemaName="bookableresourcecategory" parentDisplayName="Bookable Resource Category" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="product" parentDisplayName="Product" solution="msdynce_ProductManagement (9.0.4.0066)">
+          <package appName="msdynce_ProductManagement" version="9.0.26081.10001">msdynce_ProductManagementAnchor (9.0.26081.10001)</package>
+        </Required>
+        <Dependent type="10" schemaName="Product_est_estimateimport" displayName="Product_est_estimateimport" parentSchemaName="product" parentDisplayName="Product" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="uom" parentDisplayName="Unit" solution="msdynce_ProductManagement (9.0.4.0066)">
+          <package appName="msdynce_ProductManagement" version="9.0.26081.10001">msdynce_ProductManagementAnchor (9.0.26081.10001)</package>
+        </Required>
+        <Dependent type="10" schemaName="UoM_est_estimateimport" displayName="UoM_est_estimateimport" parentSchemaName="uom" parentDisplayName="Unit" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>
