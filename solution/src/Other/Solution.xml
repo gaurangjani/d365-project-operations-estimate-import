@@ -258,12 +258,6 @@
         <Dependent type="10" schemaName="msdyn_projecttask_est_estimateimport" displayName="msdyn_projecttask_est_estimateimport" parentSchemaName="msdyn_projecttask" parentDisplayName="Project Task" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="name" displayName="Name" parentSchemaName="bookableresourcecategory" parentDisplayName="Bookable Resource Category" solution="msdynce_Scheduling (9.0.0.0)">
-          <package appName="msdynce_Scheduling" version="9.0.7.3">Scheduling_Anchor (9.0.7.3)</package>
-        </Required>
-        <Dependent type="10" schemaName="new_BookableResourceCategory_est_estimateimport" displayName="new_BookableResourceCategory_est_estimateimport" parentSchemaName="bookableresourcecategory" parentDisplayName="Bookable Resource Category" />
-      </MissingDependency>
-      <MissingDependency>
         <Required type="2" schemaName="name" displayName="Name" parentSchemaName="product" parentDisplayName="Product" solution="msdynce_ProductManagement (9.0.4.0066)">
           <package appName="msdynce_ProductManagement" version="9.0.26081.10001">msdynce_ProductManagementAnchor (9.0.26081.10001)</package>
         </Required>

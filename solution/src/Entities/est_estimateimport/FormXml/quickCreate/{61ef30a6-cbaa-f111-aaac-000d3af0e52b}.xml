@@ -59,14 +59,6 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{CE89D16A-6EBA-4738-BD9B-4087F970FC69}" locklevel="0" colspan="1" rowspan="1" labelid="{C4B668A6-0D2E-443E-B01F-85A3A3FD9E1D}">
-                        <labels>
-                          <label description="Role / Resource Category" languagecode="1033" />
-                        </labels>
-                        <control id="est_resourcecategory" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_resourcecategory" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
                       <cell id="{8772CB8F-1189-491E-9368-91F2089D8E5A}" locklevel="0" colspan="1" rowspan="1" labelid="{11C89EC6-E82F-4C14-B97F-E94DC673B05E}">
                         <labels>
                           <label description="Quantity" languagecode="1033" />

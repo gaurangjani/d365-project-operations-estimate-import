@@ -10,7 +10,7 @@ Only **Project** is required. Everything else is optional, though a few fields a
 
 | You're recording... | Fill in |
 |---|---|
-| Time/labor | Project Task, Resource Category (recommended, not required) |
+| A task-related line | Project Task |
 | An expense | Transaction Category (recommended, not required) |
 | A catalog product | Product |
 | Something not in the catalog | Write-in Product Name instead of Product |
@@ -31,7 +31,7 @@ Saving the row triggers the **Community - Process Estimate Import** flow within 
 Refresh the record (or the view) after a few seconds and you should see:
 - Processing Status = **Processed**
 - Cost Estimate Line and Sale Estimate Line both populated with links to real records
-- Processing Notes may contain soft recommendations, e.g. *"No Project Task supplied"* or *"Resource Category recommended when Transaction Classification = Time"* — these are informational, not errors, and never block processing.
+- Processing Notes may contain soft recommendations, e.g. *"No Project Task supplied"* or *"Transaction Category recommended when Transaction Classification = Expense"* — these are informational, not errors, and never block processing.
 
 ## 3. If something goes wrong
 

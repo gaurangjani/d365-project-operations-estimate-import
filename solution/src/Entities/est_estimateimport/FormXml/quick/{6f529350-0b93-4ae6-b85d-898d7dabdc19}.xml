@@ -44,14 +44,6 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{e19dedd3-679a-4bb5-a2cb-cd8dbc2095a6}">
-                        <labels>
-                          <label description="Role / Resource Category" languagecode="1033" />
-                        </labels>
-                        <control id="est_resourcecategory" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_resourcecategory" />
-                      </cell>
-                    </row>
-                    <row>
                       <cell id="{058adcc1-bf64-49c5-8091-9331e597ae93}">
                         <labels>
                           <label description="Quantity" languagecode="1033" />

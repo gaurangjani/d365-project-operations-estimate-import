@@ -13,7 +13,6 @@
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
     <RolePrivilege name="prvDeleteest_estimateimport" level="Local" />
     <RolePrivilege name="prvReadAppModule" level="Global" />
-    <RolePrivilege name="prvReadBookableResourceCategory" level="Global" />
     <RolePrivilege name="prvReadest_estimateimport" level="Local" />
     <RolePrivilege name="prvReadmsdyn_estimate" level="Local" />
     <RolePrivilege name="prvReadmsdyn_estimateline" level="Local" />

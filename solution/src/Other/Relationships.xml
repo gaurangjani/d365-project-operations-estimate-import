@@ -30,7 +30,6 @@
   <EntityRelationship Name="msdyn_transactioncategory_est_estimateimport" />
   <EntityRelationship Name="msdyn_uom_msdyn_estimateline_Unit" />
   <EntityRelationship Name="msdyn_uomschedule_msdyn_estimateline_UnitSchedule" />
-  <EntityRelationship Name="new_BookableResourceCategory_est_estimateimport" />
   <EntityRelationship Name="owner_est_estimateimport" />
   <EntityRelationship Name="owner_msdyn_estimateline" />
   <EntityRelationship Name="Product_est_estimateimport" />

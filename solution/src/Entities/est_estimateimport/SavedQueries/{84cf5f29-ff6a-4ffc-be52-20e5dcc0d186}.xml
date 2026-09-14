@@ -13,7 +13,6 @@
           <cell name="est_name" width="180" />
           <cell name="est_project" width="130" />
           <cell name="est_projecttask" width="130" />
-          <cell name="est_resourcecategory" width="130" />
           <cell name="est_transactionclassification" width="110" />
           <cell name="est_quantity" width="80" />
           <cell name="est_uom" width="90" />
@@ -35,7 +34,6 @@
           <attribute name="est_name" />
           <attribute name="est_project" />
           <attribute name="est_projecttask" />
-          <attribute name="est_resourcecategory" />
           <attribute name="est_transactionclassification" />
           <attribute name="est_quantity" />
           <attribute name="est_uom" />

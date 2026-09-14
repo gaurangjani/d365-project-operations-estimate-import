@@ -39,11 +39,11 @@ flowchart TD
     UP1 --> EL
 ```
 
-The staging table never touches `msdyn_estimateline` directly for reads after the pair exists — the flow is the only writer, and every optional lookup (Task, Resource Category, Product, Transaction Category, Unit) flows through untouched when left blank rather than blocking the Create.
+The staging table never touches `msdyn_estimateline` directly for reads after the pair exists — the flow is the only writer, and every optional lookup (Task, Product, Transaction Category, Unit) flows through untouched when left blank rather than blocking the Create.
 
 ## What's included
 
-- **Custom table**: `est_estimateimport` ("Estimate Import") — the staging/input table, with lookups to Project, Project Task, Resource Category, Unit, Product, and Transaction Category (all optional except Project, matching what standard Project Operations allows).
+- **Custom table**: `est_estimateimport` ("Estimate Import") — the staging/input table, with lookups to Project, Project Task, Unit, Product, and Transaction Category (all optional except Project, matching what standard Project Operations allows).
 - **Forms**: Quick Create + Main form, styled to match the standard Estimate quick-create experience. Both include a small JavaScript web resource (`est_/js/estimate_import_task_filter.js`) that filters the Project Task lookup to only show tasks belonging to the Project you've selected — picking Project first, then Task, is enforced rather than left to the user to get right. There's also a Quick View form (read-only summary panel) for embedding this record on other entities' forms.
 - **Views**: Active / Inactive / My / Advanced Find / Associated / Lookup / Quick Find, all showing the relevant columns where applicable.
 - **Security role**: `Estimate Import User (Community)` — grants exactly the privileges needed to use this table (own-table CRUD, read access to the lookup target tables, append rights to the generated Estimate/Estimate Line records). Rename it after import if you like; it's just a starting point.
@@ -51,7 +51,7 @@ The staging table never touches `msdyn_estimateline` directly for reads after th
   - **Create**: finds-or-creates the parent Estimate header for the project, creates the Cost Estimate Line, and updates the Sales Estimate Line that Project Operations auto-creates for it (PO does not allow creating that one explicitly).
   - **Update**: if the row was already processed, pushes changed values (quantity, rate, dates, product, description, unit) onto the existing paired lines instead of creating new ones.
   - **Delete**: deletes the paired Cost + Sales Estimate Lines when the staging row is deleted.
-  - Every optional field (Task, Resource Category, Product, Transaction Category) is genuinely optional end-to-end — a missing value is simply omitted, never blocks processing, matching how standard Project Operations treats these fields.
+  - Every optional field (Task, Product, Transaction Category) is genuinely optional end-to-end — a missing value is simply omitted, never blocks processing, matching how standard Project Operations treats these fields.
 
 ## Prerequisites
 
@@ -60,10 +60,9 @@ This is **not** a generic Dataverse solution — it depends on standard Project 
 | Requirement | Why it's needed |
 |---|---|
 | **Dynamics 365 Project Operations** (built/tested against 4.170.3509.4) | Provides Project, Project Task, Estimate, and Estimate Line — the tables this solution pairs Cost/Sales lines against. |
-| **Universal Resource Scheduling** (`msdynce_Scheduling`) | Provides Bookable Resource Category, used by the Resource Category lookup. |
 | **Product Management** (`msdynce_ProductManagement`) | Provides Product and Unit (UoM), used by the Product and Unit lookups. |
 
-In practice you don't need to install these separately — they're baseline components of any working Project Operations deployment (they're what standard Estimate Lines already run on internally). If your environment already lets you create a normal Estimate Line with a Product, Unit, and Resource Category, you have everything this solution needs. A bare/trial Dataverse environment without Project Operations does not qualify.
+In practice you don't need to install these separately — they're baseline components of any working Project Operations deployment (they're what standard Estimate Lines already run on internally). If your environment already lets you create a normal Estimate Line with a Product and Unit, you have everything this solution needs. A bare/trial Dataverse environment without Project Operations does not qualify.
 
 - System Administrator (or equivalent solution-import) access to import the solution.
 - [Power Platform CLI](https://aka.ms/PowerPlatformCLI) if you want to import via CLI, or use the Power Platform admin center / maker portal.
@@ -101,8 +100,7 @@ In practice you don't need to install these separately — they're baseline comp
 | `est_name` | Text | Line name (primary field) |
 | `est_project` | Lookup | `msdyn_project` — required |
 | `est_projecttask` | Lookup | `msdyn_projecttask` — optional |
-| `est_resourcecategory` | Lookup | `bookableresourcecategory` — optional, recommended when Transaction Classification = Time |
-| `est_transactionclassification` | Choice | Time / Expense / Material / Milestone / Fee / Retainer |
+| `est_transactionclassification` | Choice | Expense / Material / Milestone / Fee / Retainer / Tax |
 | `est_transactioncategory` | Lookup | `msdyn_transactioncategory` — optional, recommended when Transaction Classification = Expense |
 | `est_product` | Lookup | `product` — optional, catalog product |
 | `est_writeinproductname` | Text | Optional, used when no catalog product applies |

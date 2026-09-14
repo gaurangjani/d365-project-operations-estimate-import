@@ -55,12 +55,6 @@
                         </labels>
                         <control id="a1b2c3d4-0004-4000-8000-000000000003" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_projecttask" disabled="false" isrequired="false" />
                       </cell>
-                      <cell id="a1b2c3d4-0003-4000-8000-000000000004" showlabel="true" visible="true" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Role / Resource Category" languagecode="1033" />
-                        </labels>
-                        <control id="a1b2c3d4-0004-4000-8000-000000000004" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="est_resourcecategory" disabled="false" isrequired="false" />
-                      </cell>
                     </row>
                     <row>
                       <cell id="a1b2c3d4-0003-4000-8000-000000000005" showlabel="true" visible="true" colspan="1" rowspan="1">
